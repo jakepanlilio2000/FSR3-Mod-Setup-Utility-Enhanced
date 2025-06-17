@@ -1,0 +1,77 @@
+﻿<UserControl
+    x:Class="FSR3ModSetupUtilityEnhanced.View.HomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:FSR3ModSetupUtilityEnhanced.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:FSR3ModSetupUtilityEnhanced.ViewModel"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Foreground="WhiteSmoke"
+    mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <viewmodels:HomeViewModel/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="{Binding BackgroundImage}" Stretch="UniformToFill" />
+        </Grid.Background>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <TextBlock
+                HorizontalAlignment="Center"
+                FontSize="72"
+                FontWeight="Bold"
+                Text="{Binding CurrentDayOfWeek}" />
+            <TextBlock
+                Margin="0,0,0,20"
+                HorizontalAlignment="Center"
+                FontSize="24"
+                FontWeight="Normal"
+                Text="{Binding CurrentDate}" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                FontFamily="Consolas"
+                FontSize="80"
+                FontWeight="Bold"
+                Text="{Binding CurrentTime}" />
+
+            <Border Height="50" />
+
+            <TextBlock
+                Margin="0,0,0,10"
+                HorizontalAlignment="Center"
+                FontSize="24"
+                FontWeight="Bold"
+                Text="SELECT GAME" />
+
+            <ComboBox
+                Width="300"
+                FontSize="14"
+                ItemsSource="{Binding Games}"
+                SelectedItem="{Binding SelectedGame}" />
+
+            <ComboBox
+                Width="300"
+                Margin="0,15,0,0"
+                FontSize="14"
+                ItemsSource="{Binding FsrVersions}"
+                SelectedItem="{Binding SelectedFsrVersion}">
+                <ComboBox.Style>
+                    <Style BasedOn="{StaticResource {x:Type ComboBox}}" TargetType="ComboBox">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsFsrSelectorVisible}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Style>
+            </ComboBox>
+        </StackPanel>
+    </Grid>
+</UserControl>
